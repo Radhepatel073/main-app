@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://photoresize.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Disallow admin areas (if any)
+Disallow: /admin/
+Disallow: /private/
+
+# Allow important pages
+Allow: /tools/
+Allow: /support/
+Allow: /company/
+
+# SEO optimized robots.txt for PhotoResize
+# Free online image editor and photo resizer

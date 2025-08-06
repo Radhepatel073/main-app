@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Image Online Free - PhotoResize Crop Tool</title>
+    <meta name="description" content="Free online image crop tool. Crop photos with perfect aspect ratios like 1:1, 16:9, 4:3. Support JPG, PNG, GIF, WebP formats. No download required.">
+    <meta name="keywords" content="crop image online, photo crop, image crop, crop jpg, crop png, square crop, 16:9 crop, 4:3 crop">
+    <link rel="canonical" href="https://photoresize.com/tools/crop">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-50 via-white to-blue-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="flex items-center justify-between p-4 lg:p-6">
+        <a href="../index.html" class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
+                <i data-lucide="crop" class="w-4 h-4 text-white"></i>
+            </div>
+            <span class="font-bold text-xl">PhotoResize</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>
+            Back to Home
+        </a>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent mb-4">
+                Crop Image Online
+            </h1>
+            <p class="text-gray-600">Crop your images to perfect aspect ratios</p>
+        </div>
+
+        <div id="uploadSection" class="max-w-2xl mx-auto">
+            <div class="bg-white rounded-lg shadow border p-8">
+                <div id="uploadArea" class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center cursor-pointer hover:border-blue-400 transition-colors">
+                    <i data-lucide="crop" class="w-12 h-12 mx-auto mb-4 text-gray-400"></i>
+                    <h3 class="text-lg font-semibold mb-2">Upload Image to Crop</h3>
+                    <p class="text-gray-600 mb-4">Click here or drag and drop your image</p>
+                    <div class="flex justify-center gap-2">
+                        <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-gray-100">JPG</span>
+                        <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-gray-100">PNG</span>
+                        <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-gray-100">WEBP</span>
+                    </div>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" class="hidden">
+            </div>
+        </div>
+
+        <div id="editorSection" class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto hidden">
+            <div class="bg-white rounded-lg shadow border">
+                <div class="p-4 border-b">
+                    <h3 class="font-semibold">Original Image</h3>
+                </div>
+                <div class="p-4">
+                    <div class="bg-gray-100 rounded-lg p-4 flex items-center justify-center min-h-[300px]">
+                        <img id="previewImage" class="max-w-full max-h-[400px] object-contain">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border">
+                <div class="p-4 border-b">
+                    <h3 class="font-semibold">Crop Options</h3>
+                </div>
+                <div class="p-6 space-y-4">
+                    <p class="text-gray-600 mb-6">Choose an aspect ratio to crop your image:</p>
+                    
+                    <button class="crop-btn w-full flex items-center justify-start px-4 py-3 border border-gray-300 rounded-md hover:bg-gray-50" data-ratio="1:1">
+                        <div class="w-8 h-8 bg-blue-500 rounded mr-3"></div>
+                        Square (1:1) - Perfect for profile pictures
+                    </button>
+
+                    <button class="crop-btn w-full flex items-center justify-start px-4 py-3 border border-gray-300 rounded-md hover:bg-gray-50" data-ratio="16:9">
+                        <div class="w-8 h-4 bg-green-500 rounded mr-3"></div>
+                        Widescreen (16:9) - Great for banners
+                    </button>
+
+                    <button class="crop-btn w-full flex items-center justify-start px-4 py-3 border border-gray-300 rounded-md hover:bg-gray-50" data-ratio="4:3">
+                        <div class="w-6 h-5 bg-purple-500 rounded mr-3"></div>
+                        Standard (4:3) - Classic photo ratio
+                    </button>
+
+                    <div id="processingIndicator" class="text-center py-4 hidden">
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                        <p class="mt-2 text-gray-600">Processing...</p>
+                    </div>
+
+                    <button id="newImageBtn" class="w-full px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 mt-6">
+                        Upload Different Image
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <canvas id="processCanvas" class="hidden"></canvas>
+
+    <script>
+        class ImageCropper {
+            constructor() {
+                this.originalImage = null;
+                this.isProcessing = false;
+                
+                this.init();
+            }
+
+            init() {
+                this.initializeElements();
+                this.bindEvents();
+                lucide.createIcons();
+            }
+
+            initializeElements() {
+                this.uploadSection = document.getElementById('uploadSection');
+                this.editorSection = document.getElementById('editorSection');
+                this.uploadArea = document.getElementById('uploadArea');
+                this.fileInput = document.getElementById('fileInput');
+                this.previewImage = document.getElementById('previewImage');
+                this.processCanvas = document.getElementById('processCanvas');
+                this.processingIndicator = document.getElementById('processingIndicator');
+                this.newImageBtn = document.getElementById('newImageBtn');
+            }
+
+            bindEvents() {
+                this.uploadArea.addEventListener('click', () => this.fileInput.click());
+                this.uploadArea.addEventListener('dragover', this.handleDragOver.bind(this));
+                this.uploadArea.addEventListener('dragleave', this.handleDragLeave.bind(this));
+                this.uploadArea.addEventListener('drop', this.handleDrop.bind(this));
+                this.fileInput.addEventListener('change', this.handleFileUpload.bind(this));
+                
+                document.querySelectorAll('.crop-btn').forEach(btn => {
+                    btn.addEventListener('click', this.handleCrop.bind(this));
+                });
+                
+                this.newImageBtn.addEventListener('click', this.showUploadSection.bind(this));
+            }
+
+            handleDragOver(e) {
+                e.preventDefault();
+                this.uploadArea.classList.add('border-blue-400', 'bg-blue-50');
+            }
+
+            handleDragLeave(e) {
+                e.preventDefault();
+                this.uploadArea.classList.remove('border-blue-400', 'bg-blue-50');
+            }
+
+            handleDrop(e) {
+                e.preventDefault();
+                this.uploadArea.classList.remove('border-blue-400', 'bg-blue-50');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0 && files[0].type.startsWith('image/')) {
+                    this.processImageFile(files[0]);
+                }
+            }
+
+            handleFileUpload(e) {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    this.processImageFile(file);
+                }
+            }
+
+            processImageFile(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        this.originalImage = img;
+                        this.showEditorSection();
+                    };
+                    img.src = e.target.result;
+                    this.previewImage.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+
+            showEditorSection() {
+                this.uploadSection.classList.add('hidden');
+                this.editorSection.classList.remove('hidden');
+            }
+
+            showUploadSection() {
+                this.editorSection.classList.add('hidden');
+                this.uploadSection.classList.remove('hidden');
+                this.originalImage = null;
+            }
+
+            handleCrop(e) {
+                if (this.isProcessing || !this.originalImage) return;
+
+                const aspectRatio = e.currentTarget.dataset.ratio;
+                this.cropImage(aspectRatio);
+            }
+
+            cropImage(aspectRatio) {
+                this.isProcessing = true;
+                this.processingIndicator.classList.remove('hidden');
+
+                setTimeout(() => {
+                    const canvas = this.processCanvas;
+                    const ctx = canvas.getContext('2d');
+                    const img = this.originalImage;
+
+                    let cropWidth = img.width;
+                    let cropHeight = img.height;
+                    let cropX = 0;
+                    let cropY = 0;
+
+                    // Calculate crop dimensions based on aspect ratio
+                    switch (aspectRatio) {
+                        case '1:1':
+                            const size = Math.min(img.width, img.height);
+                            cropWidth = cropHeight = size;
+                            cropX = (img.width - size) / 2;
+                            cropY = (img.height - size) / 2;
+                            break;
+                        case '16:9':
+                            if (img.width / img.height > 16/9) {
+                                cropHeight = img.height;
+                                cropWidth = img.height * (16/9);
+                                cropX = (img.width - cropWidth) / 2;
+                            } else {
+                                cropWidth = img.width;
+                                cropHeight = img.width * (9/16);
+                                cropY = (img.height - cropHeight) / 2;
+                            }
+                            break;
+                        case '4:3':
+                            if (img.width / img.height > 4/3) {
+                                cropHeight = img.height;
+                                cropWidth = img.height * (4/3);
+                                cropX = (img.width - cropWidth) / 2;
+                            } else {
+                                cropWidth = img.width;
+                                cropHeight = img.width * (3/4);
+                                cropY = (img.height - cropHeight) / 2;
+                            }
+                            break;
+                    }
+
+                    canvas.width = cropWidth;
+                    canvas.height = cropHeight;
+
+                    ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+
+                    canvas.toBlob((blob) => {
+                        if (blob) {
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `cropped-${aspectRatio}-${Date.now()}.png`;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                        }
+                        
+                        this.isProcessing = false;
+                        this.processingIndicator.classList.add('hidden');
+                    }, 'image/png');
+                }, 100);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new ImageCropper();
+        });
+    </script>
+</body>
+</html>

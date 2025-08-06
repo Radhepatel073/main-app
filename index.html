@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoResize - Free Online Image Editor | Resize, Crop, Edit Photos</title>
+    <meta name="description" content="Free online photo editor to resize images, crop photos, remove backgrounds, convert JPG to PNG, edit pictures. No download required. Support JPG, PNG, GIF, WebP, BMP formats.">
+    <meta name="keywords" content="photo resize, image resize, resize photo online, crop image, photo editor, image editor, resize jpg, resize png, convert jpg to png, png to jpg, remove background, background remover, photo crop, image crop, online photo editor, free image editor, picture resize, photo resizer, image resizer, compress image, reduce image size, photo filter, image filter, rotate image, flip image, brightness contrast, saturation hue, blur image, sharpen image, photo effects, image effects, webp converter, gif editor, bmp converter, photo editing tools, image editing software, online image tools, free photo tools, picture editor, image optimizer, photo compressor">
+    <meta name="author" content="PhotoResize Team">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://photoresize.com">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="PhotoResize - Free Online Image Editor | Resize, Crop, Edit Photos">
+    <meta property="og:description" content="Free online photo editor to resize images, crop photos, remove backgrounds, convert formats. Support JPG, PNG, GIF, WebP, BMP. No download required.">
+    <meta property="og:url" content="https://photoresize.com">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://photoresize.com/og-image.jpg">
+    <meta property="og:site_name" content="PhotoResize">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PhotoResize - Free Online Image Editor">
+    <meta name="twitter:description" content="Free online photo editor to resize images, crop photos, remove backgrounds, convert formats. No download required.">
+    <meta name="twitter:image" content="https://photoresize.com/twitter-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#3B82F6">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#F3F4F6',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PhotoResize",
+        "description": "Free online image editor to resize photos, crop images, remove backgrounds, and convert between formats like JPG, PNG, WebP, GIF, BMP",
+        "url": "https://photoresize.com",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Resize images online",
+            "Crop photos",
+            "Remove background",
+            "Convert image formats",
+            "Apply filters and effects",
+            "Rotate and flip images",
+            "Adjust brightness and contrast",
+            "Compress images"
+        ],
+        "author": {
+            "@type": "Organization",
+            "name": "PhotoResize Team"
+        }
+    }
+    </script>
+    
+    <!-- FAQ Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How to resize an image online for free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Upload your image to PhotoResize, enter new dimensions, and download the resized image. Supports JPG, PNG, GIF, WebP, and BMP formats."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I remove background from photos online?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, PhotoResize offers free background removal tool that automatically detects and removes backgrounds from your photos."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What image formats are supported?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "PhotoResize supports JPG, JPEG, PNG, GIF, WebP, and BMP image formats for both input and output."
+                }
+            }
+        ]
+    }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-gray-50 via-white to-blue-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="flex items-center justify-between p-4 lg:p-6">
+        <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-green-500 rounded-lg flex items-center justify-center transform rotate-12 hover:rotate-0 transition-transform duration-300">
+                <i data-lucide="crop" class="w-4 h-4 text-white"></i>
+            </div>
+            <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center transform -rotate-12 hover:rotate-0 transition-transform duration-300">
+                <i data-lucide="palette" class="w-4 h-4 text-white"></i>
+            </div>
+        </div>
+        
+        <div class="hidden lg:flex items-center space-x-8">
+            <div class="relative group">
+                <button class="text-gray-600 hover:text-gray-900 transition-colors">Tools</button>
+                <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="py-2">
+                        <a href="tools/resize.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Resize Image</a>
+                        <a href="tools/crop.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Crop Image</a>
+                        <a href="tools/rotate.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Rotate Image</a>
+                        <a href="tools/convert.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Convert Format</a>
+                        <a href="tools/remove-bg.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Remove Background</a>
+                    </div>
+                </div>
+            </div>
+            <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
+            <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
+            <div class="relative group">
+                <button class="text-gray-600 hover:text-gray-900 transition-colors">Support</button>
+                <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="py-2">
+                        <a href="support/help.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Help Center</a>
+                        <a href="support/contact.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Contact Us</a>
+                        <a href="support/faq.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">FAQ</a>
+                        <a href="support/privacy.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+            <button id="aboutBtn" class="text-gray-600 hover:text-gray-900 transition-colors">About</button>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button class="hidden lg:flex items-center text-gray-600 hover:text-gray-900 transition-colors">
+                <i data-lucide="globe" class="w-4 h-4 mr-2"></i>
+                EN
+            </button>
+            
+            <button id="mobileMenuBtn" class="lg:hidden text-gray-600 hover:text-gray-900">
+                <i data-lucide="menu" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed inset-0 z-50 lg:hidden hidden">
+        <div class="fixed inset-0 bg-black bg-opacity-50"></div>
+        <div class="fixed right-0 top-0 h-full w-3/4 max-w-sm bg-white shadow-lg p-6">
+            <button id="closeMobileMenu" class="absolute right-4 top-4">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+            <div class="flex flex-col space-y-4 mt-8">
+                <div class="space-y-2">
+                    <h3 class="font-semibold">Tools</h3>
+                    <a href="tools/resize.html" class="block text-gray-600 hover:text-gray-900 pl-4">Resize Image</a>
+                    <a href="tools/crop.html" class="block text-gray-600 hover:text-gray-900 pl-4">Crop Image</a>
+                    <a href="tools/rotate.html" class="block text-gray-600 hover:text-gray-900 pl-4">Rotate Image</a>
+                    <a href="tools/convert.html" class="block text-gray-600 hover:text-gray-900 pl-4">Convert Format</a>
+                    <a href="tools/remove-bg.html" class="block text-gray-600 hover:text-gray-900 pl-4">Remove Background</a>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="font-semibold">Support</h3>
+                    <a href="support/help.html" class="block text-gray-600 hover:text-gray-900 pl-4">Help Center</a>
+                    <a href="support/contact.html" class="block text-gray-600 hover:text-gray-900 pl-4">Contact Us</a>
+                    <a href="support/faq.html" class="block text-gray-600 hover:text-gray-900 pl-4">FAQ</a>
+                    <a href="support/privacy.html" class="block text-gray-600 hover:text-gray-900 pl-4">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="fixed inset-0 z-50 hidden">
+        <div class="fixed inset-0 bg-black bg-opacity-50"></div>
+        <div class="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl bg-white rounded-lg shadow-lg p-6 max-h-96 overflow-y-auto">
+            <button id="closeAboutModal" class="absolute right-4 top-4">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+            <h2 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent mb-4">
+                About PhotoResize
+            </h2>
+            <div class="space-y-4 text-gray-600">
+                <p>
+                    PhotoResize is a powerful, free online image editor that allows you to resize, rotate, 
+                    crop, and apply filters to your images without any software installation.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Features:</h3>
+                        <ul class="space-y-1 text-sm">
+                            <li>• Resize images to any dimension</li>
+                            <li>• Crop images with precision</li>
+                            <li>• Rotate and flip images</li>
+                            <li>• Remove backgrounds automatically</li>
+                            <li>• Apply color filters and adjustments</li>
+                            <li>• Convert between formats</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Privacy:</h3>
+                        <ul class="space-y-1 text-sm">
+                            <li>• All processing in your browser</li>
+                            <li>• No images uploaded to servers</li>
+                            <li>• Complete privacy and security</li>
+                            <li>• No registration required</li>
+                            <li>• Free to use forever</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 lg:py-16">
+        <!-- Landing Page -->
+        <div id="landingPage" class="text-center max-w-4xl mx-auto">
+            <!-- SEO Optimized Header -->
+            <header class="mb-8 flex justify-center">
+                <div class="relative">
+                    <h1 class="text-4xl lg:text-6xl xl:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent transform hover:scale-105 transition-transform duration-300">
+                        Photo<span class="text-green-500">Resize</span>
+                    </h1>
+                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
+                </div>
+            </header>
+            
+            <h2 class="text-xl lg:text-2xl text-gray-600 mb-4">
+                Free Online Image Editor & Photo Resizer
+            </h2>
+            
+            <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+                Resize photos, crop images, remove backgrounds, and convert between JPG, PNG, GIF, WebP, BMP formats. 
+                Professional photo editing tools - completely free, no download required, works in your browser.
+            </p>
+
+            <!-- SEO Keywords Section -->
+            <div class="mb-8 text-sm text-gray-500">
+                <p>
+                    <strong>Supported formats:</strong> JPG, JPEG, PNG, GIF, WebP, BMP | 
+                    <strong> Tools:</strong> Resize, Crop, Rotate, Flip, Remove Background, Convert, Compress, Filter
+                </p>
+            </div>
+
+            <!-- Upload Area -->
+            <section id="uploadArea" class="relative group cursor-pointer transition-all duration-300">
+                <div class="bg-white rounded-2xl shadow-2xl border-2 border-dashed border-gray-300 hover:border-blue-400 p-12 lg:p-20 transition-all duration-300 transform hover:scale-105 hover:shadow-3xl">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-green-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-20 h-20 lg:w-24 lg:h-24 mx-auto mb-6 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center transform rotate-3 group-hover:rotate-0 transition-transform duration-300 shadow-lg">
+                            <i data-lucide="upload" class="w-10 h-10 lg:w-12 lg:h-12 text-white"></i>
+                        </div>
+                        
+                        <h3 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
+                            UPLOAD IMAGE TO RESIZE
+                        </h3>
+                        
+                        <p class="text-gray-600 mb-6">
+                            Drag and drop your JPG, PNG, GIF, WebP, or BMP image here or click to browse
+                        </p>
+                        
+                        <div class="flex flex-wrap justify-center gap-2 text-sm text-gray-500">
+                            <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-secondary text-gray-700">JPG</span>
+                            <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-secondary text-gray-700">PNG</span>
+                            <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-secondary text-gray-700">GIF</span>
+                            <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-secondary text-gray-700">WEBP</span>
+                            <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-secondary text-gray-700">BMP</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <input type="file" id="fileInput" accept="image/*" class="hidden" aria-label="File input for image upload">
+
+            <div class="mt-8">
+                <button id="sampleImageBtn" class="text-blue-600 hover:text-blue-800 underline transition-colors">
+                    New to photo editing? Try our sample image.
+                </button>
+            </div>
+
+            <!-- Features Grid -->
+            <section id="features" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mt-16">
+                <h2 class="sr-only">Photo Editing Tools and Features</h2>
+                
+                <a href="tools/resize.html" class="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    <div class="bg-white rounded-lg shadow border p-6 text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="crop" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Resize Images</h3>
+                        <p class="text-sm text-gray-600">Change photo dimensions and compress file size</p>
+                    </div>
+                </a>
+
+                <a href="tools/crop.html" class="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    <div class="bg-white rounded-lg shadow border p-6 text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="scissors" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Crop Photos</h3>
+                        <p class="text-sm text-gray-600">Crop images with precision and preset ratios</p>
+                    </div>
+                </a>
+
+                <a href="tools/rotate.html" class="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    <div class="bg-white rounded-lg shadow border p-6 text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="rotate-cw" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Rotate & Flip</h3>
+                        <p class="text-sm text-gray-600">Rotate and flip images in any direction</p>
+                    </div>
+                </a>
+
+                <div class="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    <div class="bg-white rounded-lg shadow border p-6 text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="palette" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Photo Filters</h3>
+                        <p class="text-sm text-gray-600">Apply brightness, contrast, saturation filters</p>
+                    </div>
+                </div>
+
+                <a href="tools/remove-bg.html" class="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    <div class="bg-white rounded-lg shadow border p-6 text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="eraser" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Remove Background</h3>
+                        <p class="text-sm text-gray-600">Automatically remove image backgrounds</p>
+                    </div>
+                </a>
+            </section>
+
+            <!-- SEO Content Section -->
+            <section class="mt-16 text-left max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+                    Professional Photo Editing Made Simple
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-600">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Resize Images Online</h3>
+                        <p class="mb-4">
+                            Easily resize your photos to any dimension while maintaining quality. Perfect for social media, 
+                            websites, or printing. Supports batch processing and maintains aspect ratios automatically.
+                        </p>
+                        
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Convert Image Formats</h3>
+                        <p>
+                            Convert between JPG, PNG, GIF, WebP, and BMP formats instantly. Optimize file sizes 
+                            for web use or convert to PNG for transparency support.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Remove Backgrounds</h3>
+                        <p class="mb-4">
+                            Advanced AI-powered background removal tool that automatically detects subjects 
+                            and creates transparent backgrounds. Perfect for product photos and portraits.
+                        </p>
+                        
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Photo Filters & Effects</h3>
+                        <p>
+                            Apply professional filters including brightness, contrast, saturation, hue rotation, 
+                            and blur effects. Fine-tune your images with precision controls.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Editor Page -->
+        <div id="editorPage" class="max-w-7xl mx-auto hidden">
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+                <!-- Image Preview -->
+                <div class="xl:col-span-2">
+                    <div class="bg-white rounded-lg shadow-2xl overflow-hidden">
+                        <div class="relative bg-gray-100 min-h-[400px] flex items-center justify-center">
+                            <canvas id="previewCanvas" class="max-w-full max-h-[600px] object-contain"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="space-y-6">
+                    <div class="bg-white rounded-lg shadow-xl p-6">
+                        <!-- Tabs -->
+                        <div class="flex border-b border-gray-200 mb-6">
+                            <button class="tab-btn active px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600" data-tab="resize">Resize</button>
+                            <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="rotate">Rotate</button>
+                            <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="filters">Filters</button>
+                            <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="adjust">Adjust</button>
+                        </div>
+                        
+                        <!-- Resize Tab -->
+                        <div id="resizeTab" class="tab-content space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="widthInput" class="block text-sm font-medium text-gray-700 mb-1">Width (px)</label>
+                                    <input type="number" id="widthInput" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label for="heightInput" class="block text-sm font-medium text-gray-700 mb-1">Height (px)</label>
+                                    <input type="number" id="heightInput" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="checkbox" id="aspectRatio" checked class="rounded">
+                                <label for="aspectRatio" class="text-sm text-gray-700">Maintain aspect ratio</label>
+                            </div>
+                            <p id="originalDimensions" class="text-sm text-gray-600"></p>
+                        </div>
+                        
+                        <!-- Rotate Tab -->
+                        <div id="rotateTab" class="tab-content space-y-4 hidden">
+                            <div class="grid grid-cols-2 gap-2">
+                                <button id="rotate90" class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
+                                    <i data-lucide="rotate-cw" class="w-4 h-4 mr-2"></i>
+                                    90°
+                                </button>
+                                <button id="rotateNeg90" class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
+                                    <i data-lucide="rotate-ccw" class="w-4 h-4 mr-2"></i>
+                                    -90°
+                                </button>
+                                <button id="flipH" class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
+                                    <i data-lucide="flip-horizontal" class="w-4 h-4 mr-2"></i>
+                                    Flip H
+                                </button>
+                                <button id="flipV" class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
+                                    <i data-lucide="flip-vertical" class="w-4 h-4 mr-2"></i>
+                                    Flip V
+                                </button>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Custom Rotation: <span id="rotationValue">0</span>°</label>
+                                <input type="range" id="rotationSlider" min="0" max="360" value="0" class="w-full">
+                            </div>
+                        </div>
+                        
+                        <!-- Filters Tab -->
+                        <div id="filtersTab" class="tab-content space-y-4 hidden">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Brightness: <span id="brightnessValue">100</span>%</label>
+                                <input type="range" id="brightnessSlider" min="0" max="200" value="100" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Contrast: <span id="contrastValue">100</span>%</label>
+                                <input type="range" id="contrastSlider" min="0" max="200" value="100" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Saturation: <span id="saturationValue">100</span>%</label>
+                                <input type="range" id="saturationSlider" min="0" max="200" value="100" class="w-full">
+                            </div>
+                        </div>
+                        
+                        <!-- Adjust Tab -->
+                        <div id="adjustTab" class="tab-content space-y-4 hidden">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Hue: <span id="hueValue">0</span>°</label>
+                                <input type="range" id="hueSlider" min="0" max="360" value="0" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Blur: <span id="blurValue">0</span>px</label>
+                                <input type="range" id="blurSlider" min="0" max="10" step="0.1" value="0" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Quality: <span id="qualityValue">90</span>%</label>
+                                <input type="range" id="qualitySlider" min="1" max="100" value="90" class="w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Output Format</label>
+                                <select id="formatSelect" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="jpeg">JPEG</option>
+                                    <option value="png">PNG</option>
+                                    <option value="webp">WebP</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-4">
+                        <button id="downloadBtn" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300">
+                            <i data-lucide="download" class="w-5 h-5 mr-2 inline"></i>
+                            Download Processed Image
+                        </button>
+                        
+                        <button id="resetBtn" class="w-full px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
+                            Reset All Changes
+                        </button>
+                        
+                        <button id="newImageBtn" class="w-full px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
+                            Upload New Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <canvas id="processCanvas" class="hidden"></canvas>
+    
+    <!-- SEO Optimized Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-20">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">
+                        PhotoResize
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        Free online image editor for all your photo editing needs. Resize, crop, convert, and enhance images instantly.
+                    </p>
+                    <p class="text-sm text-gray-500">
+                        Professional photo editing tools - completely free, no registration required.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Image Tools</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="tools/resize.html" class="hover:text-white transition-colors">Resize Image Online</a></li>
+                        <li><a href="tools/crop.html" class="hover:text-white transition-colors">Crop Photo Tool</a></li>
+                        <li><a href="tools/rotate.html" class="hover:text-white transition-colors">Rotate & Flip Images</a></li>
+                        <li><a href="tools/convert.html" class="hover:text-white transition-colors">Convert Image Format</a></li>
+                        <li><a href="tools/remove-bg.html" class="hover:text-white transition-colors">Remove Background</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support & Help</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="support/help.html" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="support/contact.html" class="hover:text-white transition-colors">Contact Support</a></li>
+                        <li><a href="support/faq.html" class="hover:text-white transition-colors">FAQ - Common Questions</a></li>
+                        <li><a href="support/privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Company Info</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="company/about.html" class="hover:text-white transition-colors">About PhotoResize</a></li>
+                        <li><a href="company/blog.html" class="hover:text-white transition-colors">Photo Editing Blog</a></li>
+                        <li><a href="company/careers.html" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="company/terms.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 PhotoResize. All rights reserved. Free online image editor and photo resizer.</p>
+                <p class="text-sm mt-2">
+                    Keywords: resize image, crop photo, remove background, convert JPG PNG, online photo editor, image resizer, picture editor
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

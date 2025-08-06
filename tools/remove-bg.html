@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Background Online Free - PhotoResize Background Remover</title>
+    <meta name="description" content="Free online background remover tool. Remove image backgrounds automatically. Create transparent PNG images. Support JPG, PNG, WebP formats.">
+    <meta name="keywords" content="remove background online, background remover, transparent background, remove bg, background eraser, png transparent">
+    <link rel="canonical" href="https://photoresize.com/tools/remove-bg">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-50 via-white to-blue-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="flex items-center justify-between p-4 lg:p-6">
+        <a href="../index.html" class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
+                <i data-lucide="crop" class="w-4 h-4 text-white"></i>
+            </div>
+            <span class="font-bold text-xl">PhotoResize</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>
+            Back to Home
+        </a>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent mb-4">
+                Remove Background
+            </h1>
+            <p class="text-gray-600">Automatically remove backgrounds from your images</p>
+        </div>
+
+        <div id="uploadSection" class="max-w-2xl mx-auto">
+            <div class="bg-white rounded-lg shadow border p-8">
+                <div id="uploadArea" class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center cursor-pointer hover:border-blue-400 transition-colors">
+                    <i data-lucide="eraser" class="w-12 h-12 mx-auto mb-4 text-gray-400"></i>
+                    <h3 class="text-lg font-semibold mb-2">Upload Image</h3>
+                    <p class="text-gray-600 mb-4">Click here or drag and drop your image</p>
+                    <div class="flex justify-center gap-2">
+                        <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-gray-100">JPG</span>
+                        <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-gray-100">PNG</span>
+                        <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-gray-100">WEBP</span>
+                    </div>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" class="hidden">
+            </div>
+        </div>
+
+        <div id="editorSection" class="max-w-6xl mx-auto hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white rounded-lg shadow border">
+                    <div class="p-4 border-b">
+                        <h3 class="font-semibold">Original Image</h3>
+                    </div>
+                    <div class="p-4">
+                        <div class="bg-gray-100 rounded-lg p-4 flex items-center justify-center min-h-[300px]">
+                            <img id="originalImage" class="max-w-full max-h-[400px] object-contain">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow border">
+                    <div class="p-4 border-b">
+                        <h3 class="font-semibold">Background Removed</h3>
+                    </div>
+                    <div class="p-4">
+                        <div class="bg-transparent rounded-lg p-4 flex items-center justify-center min-h-[300px]" 
+                             style="background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px">
+                            <div id="processedImageContainer">
+                                <div class="text-center text-gray-500">
+                                    <i data-lucide="eraser" class="w-16 h-16 mx-auto mb-4 opacity-50"></i>
+                                    <p>Processed image will appear here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center space-y-4">
+                <button id="removeBackgroundBtn" class="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white px-8 py-3 rounded-lg font-semibold">
+                    <i data-lucide="eraser" class="w-4 h-4 mr-2 inline"></i>
+                    Remove Background
+                </button>
+
+                <button id="downloadBtn" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-3 rounded-lg font-semibold hidden">
+                    <i data-lucide="download" class="w-4 h-4 mr-2 inline"></i>
+                    Download PNG
+                </button>
+
+                <button id="newImageBtn" class="ml-4 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
+                    Upload Different Image
+                </button>
+            </div>
+
+            <div class="mt-8 p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-blue-800">
+                    <strong>Note:</strong> This is a basic background removal tool. For best results with complex backgrounds, 
+                    consider using professional tools or AI-powered services.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <canvas id="processCanvas" class="hidden"></canvas>
+
+    <script>
+        class BackgroundRemover {
+            constructor() {
+                this.originalImage = null;
+                this.processedImage = null;
+                this.isProcessing = false;
+                
+                this.init();
+            }
+
+            init() {
+                this.initializeElements();
+                this.bindEvents();
+                lucide.createIcons();
+            }
+
+            initializeElements() {
+                this.uploadSection = document.getElementById('uploadSection');
+                this.editorSection = document.getElementById('editorSection');
+                this.uploadArea = document.getElementById('uploadArea');
+                this.fileInput = document.getElementById('fileInput');
+                this.originalImage = document.getElementById('originalImage');
+                this.processedImageContainer = document.getElementById('processedImageContainer');
+                this.processCanvas = document.getElementById('processCanvas');
+                
+                this.removeBackgroundBtn = document.getElementById('removeBackgroundBtn');
+                this.downloadBtn = document.getElementById('downloadBtn');
+                this.newImageBtn = document.getElementById('newImageBtn');
+            }
+
+            bindEvents() {
+                this.uploadArea.addEventListener('click', () => this.fileInput.click());
+                this.uploadArea.addEventListener('dragover', this.handleDragOver.bind(this));
+                this.uploadArea.addEventListener('dragleave', this.handleDragLeave.bind(this));
+                this.uploadArea.addEventListener('drop', this.handleDrop.bind(this));
+                this.fileInput.addEventListener('change', this.handleFileUpload.bind(this));
+                
+                this.removeBackgroundBtn.addEventListener('click', this.removeBackground.bind(this));
+                this.downloadBtn.addEventListener('click', this.downloadImage.bind(this));
+                this.newImageBtn.addEventListener('click', this.showUploadSection.bind(this));
+            }
+
+            handleDragOver(e) {
+                e.preventDefault();
+                this.uploadArea.classList.add('border-blue-400', 'bg-blue-50');
+            }
+
+            handleDragLeave(e) {
+                e.preventDefault();
+                this.uploadArea.classList.remove('border-blue-400', 'bg-blue-50');
+            }
+
+            handleDrop(e) {
+                e.preventDefault();
+                this.uploadArea.classList.remove('border-blue-400', 'bg-blue-50');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0 && files[0].type.startsWith('image/')) {
+                    this.processImageFile(files[0]);
+                }
+            }
+
+            handleFileUpload(e) {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    this.processImageFile(file);
+                }
+            }
+
+            processImageFile(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        this.originalImageData = img;
+                        this.showEditorSection();
+                        this.resetProcessedImage();
+                    };
+                    img.src = e.target.result;
+                    this.originalImage.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+
+            showEditorSection() {
+                this.uploadSection.classList.add('hidden');
+                this.editorSection.classList.remove('hidden');
+            }
+
+            showUploadSection() {
+                this.editorSection.classList.add('hidden');
+                this.uploadSection.classList.remove('hidden');
+                this.originalImageData = null;
+                this.processedImage = null;
+            }
+
+            resetProcessedImage() {
+                this.processedImageContainer.innerHTML = `
+                    <div class="text-center text-gray-500">
+                        <i data-lucide="eraser" class="w-16 h-16 mx-auto mb-4 opacity-50"></i>
+                        <p>Processed image will appear here</p>
+                    </div>
+                `;
+                this.removeBackgroundBtn.classList.remove('hidden');
+                this.downloadBtn.classList.add('hidden');
+                lucide.createIcons();
+            }
+
+            removeBackground() {
+                if (this.isProcessing || !this.originalImageData) return;
+
+                this.isProcessing = true;
+                this.removeBackgroundBtn.innerHTML = `
+                    <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2 inline-block"></div>
+                    Processing...
+                `;
+                this.removeBackgroundBtn.disabled = true;
+
+                setTimeout(() => {
+                    const canvas = this.processCanvas;
+                    const ctx = canvas.getContext('2d');
+                    const img = this.originalImageData;
+
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+
+                    // Draw the original image
+                    ctx.drawImage(img, 0, 0);
+
+                    // Get image data
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const data = imageData.data;
+
+                    // Simple background removal (basic implementation)
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = data[i];
+                        const g = data[i + 1];
+                        const b = data[i + 2];
+
+                        // Remove white/light backgrounds (simple threshold)
+                        if (r > 240 && g > 240 && b > 240) {
+                            data[i + 3] = 0; // Set alpha to 0 (transparent)
+                        }
+                    }
+
+                    // Put the modified image data back
+                    ctx.putImageData(imageData, 0, 0);
+
+                    // Convert to data URL
+                    this.processedImage = canvas.toDataURL('image/png');
+
+                    // Display processed image
+                    this.processedImageContainer.innerHTML = `
+                        <img src="${this.processedImage}" class="max-w-full max-h-[400px] object-contain">
+                    `;
+
+                    this.isProcessing = false;
+                    this.removeBackgroundBtn.classList.add('hidden');
+                    this.downloadBtn.classList.remove('hidden');
+                }, 1000);
+            }
+
+            downloadImage() {
+                if (!this.processedImage) return;
+
+                const a = document.createElement('a');
+                a.href = this.processedImage;
+                a.download = `no-background-${Date.now()}.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new BackgroundRemover();
+        });
+    </script>
+</body>
+</html>

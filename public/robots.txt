@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://photoresize.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Allow all image editing tools
+Allow: /tools/
+Allow: /support/
+Allow: /company/
+
+# Block admin areas (if any)
+Disallow: /admin/
+Disallow: /api/
+
+# Allow common image formats
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.png
+Allow: *.gif
+Allow: *.webp
+Allow: *.bmp
